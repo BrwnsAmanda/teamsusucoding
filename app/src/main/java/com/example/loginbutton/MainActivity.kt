@@ -1,0 +1,121 @@
+package com.example.loginbutton
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.loginbutton.ui.theme.LoginButtonTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            LoginButtonTheme {
+                LoginButton()
+            }
+        }
+    }
+}
+
+@Composable
+fun ButtonAndImageLogin(modifier: Modifier = Modifier) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        Image(
+            painter = painterResource(R.drawable.background_login), // import image
+            contentDescription = "1",
+            modifier = Modifier
+                .graphicsLayer { // mengatur rotasi, skala, posisi
+                    scaleX = 2.5f // ukuran
+                    scaleY = 2.5f
+                    translationX = -400f // posisi
+                    translationY = 500f
+                }
+        )
+
+        // Letakkan logo di tengah
+        Column(
+            modifier = Modifier
+                .align(Alignment.TopCenter),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(R.drawable.horizontal_logo),
+                contentDescription = "2",
+                modifier = Modifier
+                    .graphicsLayer {
+                        scaleX = 0.6f
+                        scaleY = 0.6f
+                        translationY = -50f
+                    }
+            )
+        }
+
+        // Letakkan tombol di bagian bawah layar
+        Column(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 80.dp), // Padding agar tidak terlalu ke bawah
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Button(
+                onClick = { /* TODO */ },
+                modifier = Modifier
+                    .size(300.dp, 45.dp),
+                shape = RoundedCornerShape(10.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF08B28D))
+            ) {
+                Text(
+                    text = stringResource(R.string.SignUp),
+                    fontSize = 16.sp
+                )
+            }
+
+            Spacer(modifier = Modifier.height(15.dp))
+
+            Button(
+                onClick = { /* TODO */ },
+                shape = RoundedCornerShape(10.dp),
+                modifier = Modifier
+                    .border(2.dp, Color(0xFF08B28D), RoundedCornerShape(10.dp))
+                    .size(300.dp, 45.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = Color(0xFF08B28D)
+                )
+            ) {
+                Text(
+                    text = stringResource(R.string.SignIn),
+                    fontSize = 16.sp
+                )
+            }
+        }
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun LoginButton() {
+    ButtonAndImageLogin()
+}
